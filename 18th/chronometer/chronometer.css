@@ -1,0 +1,32 @@
+#chronometer {
+    width: 25vw;
+    height: 25vw;
+    margin: 50vh auto 0;
+    transform: translateY(-50%);
+    border: 0.1rem solid grey;
+    border-radius: 50%;
+}
+
+#counter {
+    margin: 12.5vw 0 0;
+    transform: translateY(-50%);
+}
+
+#header {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+#countdown {
+    margin: 0;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+
+}
+
+#startButton {
+    display: block;
+    margin: -25vh auto;
+}

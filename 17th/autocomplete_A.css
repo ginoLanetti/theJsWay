@@ -1,0 +1,18 @@
+.suggestion {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.suggestion:hover {
+    background-color: #adf;
+    cursor: pointer;
+}
+
+#suggestions {
+    position: absolute;
+    left: 155px;
+}
+
+.active {
+    border: 1px solid black;
+}
