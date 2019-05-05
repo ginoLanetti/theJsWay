@@ -3,6 +3,7 @@ body {
 }
 
 .linkInputs__title, .linkInputs__url, .linkInputs__author {
+    padding: 0.3rem;
     width: calc(30% - .3rem);
     border: 1px solid #e7e7e7;
     border-radius: .2rem;
