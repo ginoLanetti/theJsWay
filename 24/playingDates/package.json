@@ -1,0 +1,11 @@
+{
+    "name": "playing-with-dates",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "moment": "^2.24.0"
+    },
+    "author": "Tomko"
+}
