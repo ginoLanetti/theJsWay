@@ -8,7 +8,7 @@ const visited = {
         year: 2022
     }]
 };
-fetch('https://thejsway-server.herokuapp.com/api/countries', {
+fetch('http://localhost:3000/api/countries', {
         method: 'POST',
         headers: {
             Accept: "application/json",

@@ -51,8 +51,20 @@ app.post('./api/cars', jsonParser, (request, response) => {
     response.send(`You send me a list of cars: ${JSON.stringify(cars)}`);
 });
 //Handling web pages
-app.get("/hello", (request, response) => {
+app.get('/hello', (request, response) => {
     response.sendFile(`${__dirname}/views/hello.html`);
 });
 // Serve content of the "public" subfolder directly
 app.use(express.static("public"));
+//Coding time - T-shirt color
+app.post('/tshirt', upload.array(), (request, response) => {
+    const size = request.body.size;
+    const color = request.body.color;
+    response.send(`Command received! Size:${size}, color:${color}`);
+});
+//Coding time - T-shirt color
+app.post('/api/countries', jsonParser, (request, response) => {
+    const name = request.body.name;
+    const countriesNb = request.body.countries.length;
+    response.send(`Your name is ${name} and you visited ${countriesNb} countries. Keep travelling!`)
+});
