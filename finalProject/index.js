@@ -1,3 +1,5 @@
+const express = require('express');
+const app = express();
 const links = [{
     title: 'Facebook',
     url: 'http://www.facebook.com',
