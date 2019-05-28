@@ -1,0 +1,65 @@
+body {
+    background-color: #eee;
+}
+
+.linkInputs__title, .linkInputs__url, .linkInputs__author {
+    padding: 0.3rem;
+    width: calc(30% - .3rem);
+    border: 1px solid #e7e7e7;
+    border-radius: .2rem;
+    margin: .1rem;
+}
+.linkInputs__button {
+    width: 10%;
+    border: 1px solid #e7e7e7;
+    border-radius: .2rem;
+    background-color: #006dbf;
+    color: white;
+}
+
+/* Main link element (<div> tag) */
+.link {
+    background: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Link title (<a> tag) */
+.linkTitle {
+    color: #428bca;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.linkTitle:hover {
+    text-decoration: none;
+}
+
+/* Link URL (<span> tag) */
+.linkUrl {
+    font-weight: normal;
+    font-size: 80%;
+}
+
+/* Link headline containing title & URL (<h4> tag) */
+.linkHeadline {
+    margin: 0;
+}
+
+/* Link author (<span> tag) */
+.linkAuthor {
+    font-weight: normal;
+    font-size: 80%;
+}
+
+.linkInputs{
+    margin-bottom: 20px;
+}
+.messageDiv {
+    width: 100%;
+    border: 0.1rem solid green;
+    background-color: lightgreen;
+    text-align: center;
+    margin-bottom: 2rem;
+
+}
