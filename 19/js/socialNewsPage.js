@@ -9,7 +9,7 @@ const links = [{
     url: 'http://www.instagram.com',
     author: 'Also Me'
 }];
-const dispalyLink = (link) => {
+const displayLink = (link) => {
     const linkTitle = document.createElement('a');
     linkTitle.href = `${link.url}`;
     linkTitle.textContent = `${link.title}`;
@@ -31,6 +31,10 @@ const dispalyLink = (link) => {
     content.appendChild(linkDiv);
 }
 const addLinkInputs = () => {
+    let existingForms = document.getElementsByClassName('linkInputs');
+    if (existingForms.length > 0){
+        content.removeChild(existingForms[0]);
+    }
     const title = document.createElement('input');
     title.placeholder = 'Title';
     title.classList.add('linkInputs__title');
@@ -61,7 +65,7 @@ const addLinkInputs = () => {
                 author: author.value
             })
             content.removeChild(linkInputs);
-            dispalyLink(links[links.length - 1]);
+            displayLink(links[links.length - 1]);
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('messageDiv');
             const messageText = document.createElement('h4')
@@ -77,6 +81,6 @@ const addLinkInputs = () => {
     })
 }
 links.forEach(link => {
-    dispalyLink(link);
+    displayLink(link);
 });
 submitButton.addEventListener('click', addLinkInputs);
