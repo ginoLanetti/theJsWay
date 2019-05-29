@@ -1,16 +1,16 @@
 {
   "name": "social-news-app",
   "version": "1.0.0",
-  "description": "final project from JsWay book",
+  "description": "JsWay project",
   "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "multer": "^1.4.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ginoLanetti",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.0",
-    "multer": "^1.4.1"
-  }
+  "license": "ISC"
 }

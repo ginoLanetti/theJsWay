@@ -22,7 +22,7 @@ const displayLink = (link) => {
     content.appendChild(linkDiv);
 }
 document.addEventListener('load', e => {
-    fetch('https://localhost:3000/articles')
+    fetch('https://localhost:3000/links')
         .then(response => response.json())
         .then(links => {
             links.forEach(link => {
@@ -30,58 +30,66 @@ document.addEventListener('load', e => {
             });
         })
         .catch(err => {
-            console.error(err.message);
+            console.error('GETTING LINKS ON PAGE LOAD - FUCKED UP');
         });
 });
-/* FUNCTION ADDING NEW ARTICLE
+const postLink = () => {
+    const title = document.getElementsByClassName('linkInputs__title');
+    const author = document.getElementsByClassName('linkInputs__author');
+    const url = document.getElementsByClassName('linkInputs__url');
     if (!(url.value.startsWith(`http://`))) {
         url.value = `http://${url.value}`;
     }
     if (url.value && title.value && author.value) {
-        links.push({
-            title: title.value,
-            url: url.value,
-            author: author.value
-        })
-        content.removeChild(articleInputs);
-        displayLink(links[links.length - 1]);
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('messageDiv');
-        const messageText = document.createElement('h4')
-        messageText.textContent = `The link ${title.value} has been succesfully added!`;
-        messageDiv.appendChild(messageText);
-        content.insertAdjacentElement('afterbegin', messageDiv);
-        setInterval(h => {
-            content.removeChild(messageDiv);
-        }, 2000)
+        const formData = new FormData(linkInputs);
+        fetch('https://localhost:3000/links', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('messageDiv');
+                const responseMessageText = document.createElement('h4');
+                responseMessageText.textContent = result;
+                messageDiv.appendChild(responseMessageText);
+                content.insertAdjacentElement('afterbegin', messageDiv);
+                setInterval(h => {
+                    content.removeChild(messageDiv);
+                }, 2000)
+            })
+            .catch(err => {
+                console.error('POSTING FORM - FUCKED UP');
+            });
+        content.removeChild(linkInputs);
     } else {
         alert('your link is missing something...')
     }
-*/
-const addArticleForm = () => {
+}
+const addLinksForm = () => {
     const existingForms = document.getElementsByClassName('linkInputs');
-    if (existingForms.length > 0){
+    if (existingForms.length > 0) {
         content.removeChild(existingForms[0]);
     }
     const title = document.createElement('input');
     title.placeholder = 'Title';
-    title.classList.add('articleInputs__title');
+    title.classList.add('linkInputs__title');
     const url = document.createElement('input');
     url.placeholder = 'URL';
-    url.classList.add('articleInputs__url')
+    url.classList.add('linkInputs__url')
     const author = document.createElement('input');
     author.placeholder = 'Author';
-    author.classList.add('articleInputs__author')
+    author.classList.add('linkInputs__author')
     const addButton = document.createElement('button');
     addButton.textContent = 'Add Link';
-    addButton.classList.add('articleInputs__button')
-    const articleInputs = document.createElement('form');
-    articleInputs.classList.add('articleInputs');
-    articleInputs.appendChild(title);
-    articleInputs.appendChild(url);
-    articleInputs.appendChild(author);
-    articleInputs.appendChild(addButton);
-    content.insertAdjacentElement('afterbegin', articleInputs);
-addButton.addEventListener('click', e => {/*function adding new article*/})
+    addButton.classList.add('linkInputs__button')
+    const linkInputs = document.createElement('form');
+    linkInputs.classList.add('linkInputs');
+    linkInputs.appendChild(title);
+    linkInputs.appendChild(url);
+    linkInputs.appendChild(author);
+    linkInputs.appendChild(addButton);
+    content.insertAdjacentElement('afterbegin', linkInputs);
+    addButton.addEventListener('click', postLink);
 }
-submitButton.addEventListener('click', addArticleForm);
+submitButton.addEventListener('click', addLinksForm);
