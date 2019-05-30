@@ -30,6 +30,11 @@ app.get('/links', (request, response) => {
 app.post('/links', upload.array(), (request, response) => {
     const title = request.body.title;
     const url = request.body.url;
-    const author = request.bodu.author;
-    response.send(`Hello ${name}, your vote is: ${vote}`);
+    const author = request.body.author;
+    links.push({
+        title: title,
+        url: url,
+        author: author
+    })
+    response.send(`Hello ${author}, your link '${title}' has been added!`);
 });
