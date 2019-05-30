@@ -74,6 +74,9 @@ const addLinksForm = () => {
             url[0].value = `http://${url[0].value}`;
         }
         if (url[0].value && title[0].value && author[0].value) {
+            while (content.firstChild) {
+                content.removeChild(content.firstChild);
+            }
             const formData = new FormData(e.target);
             fetch('http://localhost:3000/links', {
                     method: 'POST',
@@ -92,9 +95,6 @@ const addLinksForm = () => {
                         clearInterval(intervalId);
                     }
                     const intervalId = setInterval(removeMessage, 2000);
-                    while (content.firstChild) {
-                        content.removeChild(content.firstChild);
-                    }
                     getLinks();
                 })
                 .catch(err => {
