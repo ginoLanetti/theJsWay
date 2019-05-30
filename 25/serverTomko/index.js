@@ -62,7 +62,7 @@ app.post('/tshirt', upload.array(), (request, response) => {
     const color = request.body.color;
     response.send(`Command received! Size:${size}, color:${color}`);
 });
-//Coding time - T-shirt color
+//Coding time - countries
 app.post('/api/countries', jsonParser, (request, response) => {
     const name = request.body.name;
     const countriesNb = request.body.countries.length;
