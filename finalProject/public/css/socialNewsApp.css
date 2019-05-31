@@ -1,8 +1,12 @@
 body {
     background-color: #eee;
 }
-
-.linkInputs__title, .linkInputs__url, .linkInputs__author {
+.linkInputs {
+    margin-bottom: 20px;
+}
+.linkInputs__title,
+.linkInputs__url,
+.linkInputs__author {
     padding: 0.3rem;
     width: calc(30% - .3rem);
     border: 1px solid #e7e7e7;
@@ -16,43 +20,29 @@ body {
     background-color: #006dbf;
     color: white;
 }
-
 .link {
     background: white;
     padding: 10px;
     margin-bottom: 10px;
 }
-
-
-.linkTitle {
+.link__title {
     color: #428bca;
     text-decoration: none;
     margin-right: 5px;
 }
-
-.linkTitle:hover {
+.link__title:hover {
     text-decoration: none;
 }
-
-
-.linkUrl {
+.link__url {
     font-weight: normal;
     font-size: 80%;
 }
-
-
-.linkHeadline {
+.link__headline {
     margin: 0;
 }
-
-
-.linkAuthor {
+.link__author {
     font-weight: normal;
     font-size: 80%;
-}
-
-.linkInputs{
-    margin-bottom: 20px;
 }
 .messageDiv {
     width: 100%;
@@ -60,5 +50,4 @@ body {
     background-color: lightgreen;
     text-align: center;
     margin-bottom: 2rem;
-
 }

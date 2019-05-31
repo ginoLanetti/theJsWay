@@ -4,17 +4,17 @@ const displayLink = (link) => {
     const linkTitle = document.createElement('a');
     linkTitle.href = `${link.url}`;
     linkTitle.textContent = `${link.title}`;
-    linkTitle.classList.add('linkTitle');
+    linkTitle.classList.add('link__title');
     const linkUrl = document.createElement('span');
     linkUrl.textContent = `${link.url}`;
-    linkUrl.classList.add('linkUrl');
+    linkUrl.classList.add('link__url');
     const linkAuthor = document.createElement('span');
     linkAuthor.textContent = `${link.author}`;
-    linkAuthor.classList.add('linkAuthor');
+    linkAuthor.classList.add('link__author');
     const linkHeadline = document.createElement('h4');
     linkHeadline.appendChild(linkTitle);
     linkHeadline.appendChild(linkUrl);
-    linkHeadline.classList.add('linkHeadline');
+    linkHeadline.classList.add('link__headline');
     const linkDiv = document.createElement('div');
     linkDiv.classList.add('link');
     linkDiv.appendChild(linkHeadline);
@@ -30,80 +30,90 @@ const getLinks = () => {
             });
         })
         .catch(err => {
-            console.error('GETTING LINKS ON PAGE LOAD - FUCKED UP');
+            console.error('GETTING LINKS UNSUCCESSFUL');
         });
 }
-window.addEventListener('load', getLinks);
-const addLinksForm = () => {
-    const existingForms = document.getElementsByClassName('linkInputs');
-    if (existingForms.length > 0) {
-        content.removeChild(existingForms[0]);
+const displayMessage = (message) => {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('messageDiv');
+    const responseMessageText = document.createElement('h4');
+    responseMessageText.textContent = message;
+    messageDiv.appendChild(responseMessageText);
+    content.insertAdjacentElement('afterbegin', messageDiv);
+    const removeMessage = () => {
+        content.removeChild(messageDiv);
+        clearInterval(intervalId);
     }
-    const title = document.createElement('input');
-    title.name = 'title';
-    title.type = 'text';
-    title.placeholder = 'Title';
-    title.classList.add('linkInputs__title');
-    const url = document.createElement('input');
-    url.name = 'url';
-    url.type = 'text';
-    url.placeholder = 'URL';
-    url.classList.add('linkInputs__url')
-    const author = document.createElement('input');
-    author.name = 'author';
-    author.type = 'text';
-    author.placeholder = 'Author';
-    author.classList.add('linkInputs__author')
-    const addButton = document.createElement('input');
-    addButton.type = 'submit'
-    addButton.value = 'Add Link';
-    addButton.classList.add('linkInputs__button')
-    const linkInputs = document.createElement('form');
-    linkInputs.classList.add('linkInputs');
-    linkInputs.appendChild(title);
-    linkInputs.appendChild(url);
-    linkInputs.appendChild(author);
-    linkInputs.appendChild(addButton);
-    content.insertAdjacentElement('afterbegin', linkInputs);
-    document.querySelector('form').addEventListener('submit', e => {
-        e.preventDefault();
-        const title = document.getElementsByClassName('linkInputs__title');
-        const author = document.getElementsByClassName('linkInputs__author');
-        const url = document.getElementsByClassName('linkInputs__url');
-        if (!(url[0].value.startsWith(`http://`))) {
-            url[0].value = `http://${url[0].value}`;
+    const intervalId = setInterval(removeMessage, 2000);
+}
+const submitForm = event => {
+        event.preventDefault();
+        const title = document.getElementById('title');
+        const author = document.getElementById('author');
+        const url = document.getElementById('url');
+        const urlDoesntStartWith = (beginning) =>{
+            return !(url.value.startsWith(beginning));
         }
-        if (url[0].value && title[0].value && author[0].value) {
+        if (url.value && title.value && author.value) {
+            if ((urlDoesntStartWith('http://')) || (urlDoesntStartWith('https://'))) {
+                url.value = `http://${url.value}`;
+            }
             while (content.firstChild) {
                 content.removeChild(content.firstChild);
             }
-            const formData = new FormData(e.target);
+            const formData = new FormData(event.target);
             fetch('http://localhost:3000/links', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.text())
                 .then(result => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.classList.add('messageDiv');
-                    const responseMessageText = document.createElement('h4');
-                    responseMessageText.textContent = result;
-                    messageDiv.appendChild(responseMessageText);
-                    content.insertAdjacentElement('afterbegin', messageDiv);
-                    const removeMessage = () => {
-                        content.removeChild(messageDiv);
-                        clearInterval(intervalId);
-                    }
-                    const intervalId = setInterval(removeMessage, 2000);
+                    displayMessage(result);
                     getLinks();
                 })
                 .catch(err => {
-                    console.error('POSTING FORM - FUCKED UP');
+                    console.error('POSTING FORM UNSUCCESSFUL');
                 });
-            content.removeChild(linkInputs);
+            content.removeChild(newLinkForm);
         } else {
-            alert('your link is missing something...')
+            displayMessage('Please fill all the fields below');
         }
-    });
 }
-submitButton.addEventListener('click', addLinksForm);
+const addNewForm = () => {
+    const existingForms = document.getElementsByClassName('linkInputs');
+    while (existingForms.length > 0) {
+        content.removeChild(existingForms[0]);
+    }
+    const title = document.createElement('input');
+    title.name = 'title';
+    title.type = 'text';
+    title.placeholder = 'Title';
+    title.id = 'title';
+    title.classList.add('linkInputs__title');
+    const url = document.createElement('input');
+    url.name = 'url';
+    url.type = 'text';
+    url.placeholder = 'URL';
+    url.id = 'url';
+    url.classList.add('linkInputs__url')
+    const author = document.createElement('input');
+    author.name = 'author';
+    author.type = 'text';
+    author.placeholder = 'Author';
+    author.id = 'author';
+    author.classList.add('linkInputs__author')
+    const addButton = document.createElement('input');
+    addButton.type = 'submit'
+    addButton.value = 'Add Link';
+    addButton.classList.add('linkInputs__button')
+    const newLinkForm = document.createElement('form');
+    newLinkForm.classList.add('linkInputs');
+    newLinkForm.appendChild(title);
+    newLinkForm.appendChild(url);
+    newLinkForm.appendChild(author);
+    newLinkForm.appendChild(addButton);
+    content.insertAdjacentElement('afterbegin', newLinkForm);
+    document.querySelector('form').addEventListener('submit', submitForm);
+}
+window.addEventListener('load', getLinks);
+submitButton.addEventListener('click', addNewForm);
