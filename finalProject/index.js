@@ -31,7 +31,7 @@ app.post('/links', upload.array(), (request, response) => {
     const title = request.body.title;
     const url = request.body.url;
     const author = request.body.author;
-    links.push({
+    links.unshift({
         title: title,
         url: url,
         author: author
